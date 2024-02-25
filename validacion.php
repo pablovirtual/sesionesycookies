@@ -1,13 +1,20 @@
 <?php
 
+// Iniciar sesión
 session_start();
-
 // Array asociativo
 $usuario = array (
-    'nombre' => 'pedro',
-    'correo' => 'pedro@udg.com',
-    'fecha' => '2024-02-02',
-    'password' => '123' 
+    array(
+        'nombre' => 'sofia',
+        'correo' => 'sofia@udg.com',
+        'fecha' => '2024-02-01',
+        'password' => '456'),
+    array(
+        'nombre' => 'pedro',
+        'correo' => 'pedro@udg.com',
+        'fecha' => '2024-02-02',
+        'password' => '123',
+    )
 );
 
 // Validación de variables del formulario
@@ -16,36 +23,45 @@ if(isset($_POST['enviar'])){
     $email = $_POST['correo'];
     $fecha = $_POST['fecha'];
     $password = $_POST['password'];
+    $marca = $_POST['marca'];
 
-    // Verificar si las variables coinciden con los valores esperados
-    if($email == $usuario['correo'] && $password == $usuario['password']){
-        // Asignar valores a las variables de sesión
-        $_SESSION['nombre'] = $usuario['nombre']; 
-        $_SESSION['correo'] = $usuario['correo']; 
-        $_SESSION['fecha'] = $usuario['fecha'];
-        $_SESSION['password'] = $usuario['password'];
+    // Verificar si las variables coinciden con los valores esperados por medio de un bucle
+    $usuarioAccede = false;
 
-        // Obtain the current date and time
-        $fecha_actual = date('Y-m-d H:i:s');
+    foreach($usuario as $u){
+        if ($email == $u['correo'] && $password == $u['password']){
+            // asigna valores a las variables de sesion
+            $_SESSION['nombre'] = $u['nombre'];
+            $_SESSION['correo'] = $u['correo'];
+            $_SESSION['fecha'] = $u['fecha'];
+            $_SESSION['password'] = $u['password'];
+            $_SESSION['marca'] = $marca;
+            $usuarioAccede = true;
 
-        // Crear un array con los datos de sesión y la fecha y hora actual
-        $datosSesion = array(
-            'sesion' => $_SESSION,
-            'ultimo_ingreso' => $fecha_actual
-        );
+            // Si las variables de sesión están definidas, redirigir a la página de bienvenida
+            //se obtiene la fecha y hora actual
+            $fecha_actual = date('Y-m-d H:i:s');
 
-        // Convertir a JSON para almacenar en la cookie
-        $cookie_data = json_encode($datosSesion);
+            // Crear un array con los datos de sesión y la fecha y hora actual
+            $datosSesion = array(
+                'sesion' => $_SESSION,
+                'ultimo_ingreso' => $fecha_actual
+            );
 
-        // Crear la cookie con los datos de sesión y la fecha y hora del último ingreso
-        setcookie('datosSesion', $cookie_data, time() + (86400 * 30), "/");
+            // Convertir a JSON para almacenar en la cookie
+            $cookie_data = json_encode($datosSesion);
 
-        // Redirigir antes de mostrar cualquier contenido
-        header('Location: bienvenida.php');
-        exit();
-    } else {
-        // Mostrar mensaje de acceso denegado
-        echo "Acceso denegado.";
+            // Crear la cookie con los datos de sesión y la fecha y hora del último ingreso
+            setcookie('datosSesion', $cookie_data, time() + (86400 * 30), "/");
+
+            // Redirigir antes de mostrar cualquier contenido
+            header('Location: bienvenida.php');
+            exit();
+        }
+    }
+
+    if (!$usuarioAccede) {
+        echo "Acceso denegado";
     }
 }
 ?>

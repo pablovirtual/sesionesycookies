@@ -14,8 +14,7 @@
 <!--formulario para enviar la informacion a validacion.php el cual enviara nombre,email,fecha de nacimiento y password-->
     <div class="container col-lg-12 d-flex justify-content-center">
 
-
-        <div class="col-lg-5 align-items-center">
+    <div class="col-lg-5 align-items-center">
 
             <form action="validacion.php" method="post">
 
@@ -35,9 +34,18 @@
 
                 <input type="password" class="form-control" id="password" name="password"><br>
 
+                <!--agregar un selector de selecion multiple para seleccionar marca de autos-->
+                <label for="marca">selecciona tu marca favorita de autos</label>
+
+                <select class="fomr-control" id="marca" name="marca">
+                    <option value="volvo">volvo</option>
+                    <option value="seat">seat</option>
+                    <option value="mercedes">mercedes</option>
+                    <option value="audi">audi</option>
+                </select><br>
+
                 <input type="submit" id="enviar" name="enviar" value="enviar">
             </form>
-
         </div>
     <!--datos para ingresar al sistema-->
     </div class="col-2">
@@ -46,7 +54,12 @@
             <h5>Nombre:pedro</h5>
             <h5>Correo:pedro@udg.com</h5>
             <h5>Fecha de nacimiento:02/02/2024</h5>
-            <h5>Constraseña:123</h5>
+            <h5>Constraseña:123</h5><br><br>
+            <h4>Datos de usuario</h4>
+            <h5>Nombre:sofia</h5>
+            <h5>Correo:sofia@udg.com</h5>
+            <h5>Fecha de nacimiento:01/02/2024</h5>
+            <h5>Constraseña:456</h5>
         </div>
     <div>
 

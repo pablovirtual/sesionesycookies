@@ -3,13 +3,12 @@
 session_start();
 
 //verifica si la sesion esta activa
-if(!isset($_SESSION['nombre'], $_SESSION['correo'],$_SESSION['fecha'],$_SESSION['password'])){
+if(!isset($_SESSION['nombre'], $_SESSION['correo'],$_SESSION['fecha'],$_SESSION['password'],$_SESSION['marca'])){
 
     //redirecciona a la pagina bienvenida
     header('Location: validacion.php');
     exit();
- } 
-
+} 
 
 ?>
 
@@ -35,19 +34,22 @@ if (isset($_COOKIE['datosSesion'])) {
 }
 
 // Verificar si la sesión está iniciada y si existe la información del usuario mostrando los datos ingresados
-if (isset($_SESSION['nombre'], $_SESSION['correo'], $_SESSION['fecha'], $_SESSION['password'])) {
-    echo "<h1>Bienvenido </h1>";
+if (isset($_SESSION['nombre'], $_SESSION['correo'], $_SESSION['fecha'], $_SESSION['password'])){
+    echo "<h1>Esta sesion corresponde al usuario </h1>";
     echo "<p>Nombre: " . $_SESSION['nombre'] . "</p>";
     echo "<p>Correo: " . $_SESSION['correo'] . "</p>";
     echo "<p>Fecha de nacimiento: " . $_SESSION['fecha'] . "</p>";
     echo "<p>Ultimo ingreso: " . $_SESSION['ultimo_ingreso'] . "</p>";
-} else {
-    echo "Acceso denegado no tienes credenciales para acceder.";
-} 
+    echo "<p>Tu marca favorita de autos es: " . $_SESSION['marca'] ."</p>";
+}  else {
+    echo "Acceso denegado.";
+
+}
 
 ?> 
 <!--boton de cierre de sesion-->
-<a href="cerrarSesion.php">Cerrar Sesion</a>
+<a href="cerrarSesion.php">Cerrar Sesion</a><br><br>
+
 
 </body>
 </html>
